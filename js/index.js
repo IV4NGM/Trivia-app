@@ -1,3 +1,5 @@
+let rightAnswersPositions = []
+
 const getApiCategories = async () => {
     const response = await fetch('https://opentdb.com/api_category.php')
     const responseJSON = await response.json()
@@ -19,9 +21,7 @@ const generateTrivia = () => {
     let triviaURL = "https://opentdb.com/api.php?amount=10"
     const difficulty = document.querySelector("#difficulty-js").value
     const answerType = document.querySelector('input[name="answer-type-js"]:checked').value
-    console.log(answerType)
     const category = document.querySelector("#category-container-js").value
-    console.log(`Difficulty: ${difficulty}, Answer Type: ${answerType}, Category: ${category}`)
     let paramNames = ["category", "difficulty", "type"]
     let params = [category, difficulty, answerType]
     for (let paramPosition in params){
@@ -36,23 +36,32 @@ const generateTrivia = () => {
 const createQuestions = async (triviaURL) => {
     const response = await fetch(triviaURL)
     const responseJSON = await response.json()
-    const questionsArray = responseJSON.results
-    let rightAnswersPositions = []
-    for(let i = 0; i < 10; i++){
-        let options = []
-        if (questionsArray[i].type=="boolean"){
-            rightAnswersPositions[i] = (Number(questionsArray[i].correct_answer)+1)%2
-            options = ["True", "False"]
-        } else {
-            let rightAnswer = Math.floor(4*Math.random())
-            rightAnswersPositions[i] = rightAnswer
-            let possibleAnswers = questionsArray[i].incorrect_answers
-            possibleAnswers.push(questionsArray[i].correct_answer)
-            for(let j = 0; j < 4; j++){
-                options[j] = possibleAnswers[(j-rightAnswer-1+4)%4]
+    if(responseJSON.response_code!=0){
+        alert("No se ha podido generar la trivia. Intenta nuevamente con otros parámetros.")
+    }else{
+        const questionsArray = responseJSON.results
+        console.log(questionsArray)
+        document.querySelector("#questions-container-js").innerHTML = ""
+        for(let i = 0; i < 10; i++){
+            let options = []
+            if (questionsArray[i].type=="boolean"){
+                if(questionsArray[i].correct_answer=="True"){
+                    rightAnswersPositions[i] = 0
+                } else {
+                    rightAnswersPositions[i] = 1
+                }
+                options = ["True", "False"]
+            } else {
+                let rightAnswer = Math.floor(4*Math.random())
+                rightAnswersPositions[i] = rightAnswer
+                let possibleAnswers = questionsArray[i].incorrect_answers
+                possibleAnswers.push(questionsArray[i].correct_answer)
+                for(let j = 0; j < 4; j++){
+                    options[j] = possibleAnswers[(j-rightAnswer-1+4)%4]
+                }
             }
+            createQuestionCard(questionsArray[i].question, i, options, questionsArray[i].category, questionsArray[i].difficulty)
         }
-        createQuestionCard(questionsArray[i].question, i, options, questionsArray[i].category, questionsArray[i].difficulty)
     }
 }
 
@@ -111,7 +120,9 @@ const createQuestionCard = (question, i, options, category, difficulty) => {
     subtitle.textContent = category
     questionText.innerHTML = question
 
-    questionCard.classList.add("card", "question-card")
+    questionCard.setAttribute("id", `question-card-${i}`)
+
+    questionCard.classList.add("card", "question-card", "form-control")
     cardBody.classList.add("card-body")
     titleContainer.classList.add("title-container")
     cardTitle.classList.add("card-title")
@@ -138,11 +149,43 @@ const createQuestionCard = (question, i, options, category, difficulty) => {
     questionsContainer.appendChild(questionCard)
 }
 
+const checkAnswers = () => {
+    let score = 0
+    for(let i = 0; i < 10; i++){
+        const questionCard = document.querySelector(`#question-card-${i}`)
+        const answerName = `answer${i}-js`
+        const answer = document.querySelector('input[name='+answerName+']:checked').value
+        if(answer == rightAnswersPositions[i]){
+            score +=100
+            questionCard.classList.add("is-valid")
+            questionCard.classList.remove("is-invalid")
+        } else {
+            questionCard.classList.add("is-invalid")
+            questionCard.classList.remove("is-valid")
+        }
+    }
+    alert(`Tu puntaje es: ${score}`)
+}
+
+const resetAnswers = () => {
+    for(let i = 0; i < 10; i++){
+        const questionCard = document.querySelector(`#question-card-${i}`)
+        questionCard.classList.remove("is-valid", "is-invalid")
+    }
+}
+
 getApiCategories()
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#type-form-js").addEventListener("submit", (event)=>{
         event.preventDefault()
         generateTrivia()
+    })
+    document.querySelector("#questions-form-js").addEventListener("submit", (event)=>{
+        event.preventDefault()
+        checkAnswers()
+    })
+    document.querySelector("#questions-form-js").addEventListener("reset", ()=>{
+        resetAnswers()
     })
 })

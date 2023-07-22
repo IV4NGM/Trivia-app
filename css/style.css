@@ -5,7 +5,8 @@ body{
 }
 
 .type-card{
-    width: 800px;
+    width: 600px;
+    margin: 20px;
 }
 
 .question-card{
@@ -49,4 +50,9 @@ body{
 
 .opaque{
     opacity: 0.35;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: space-around;
 }
