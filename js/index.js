@@ -18,6 +18,8 @@ const createCategories = (categoriesArray) => {
 }
 
 const generateTrivia = () => {
+    document.querySelector("#questions-container-js").innerHTML = ""
+    document.querySelector("#trivia-info").textContent = "Generando trivia. Esto puede tardar unos momentos..."
     let triviaURL = "https://opentdb.com/api.php?amount=10"
     const difficulty = document.querySelector("#difficulty-js").value
     const answerType = document.querySelector('input[name="answer-type-js"]:checked').value
@@ -30,18 +32,19 @@ const generateTrivia = () => {
         }
     }
     createQuestions(triviaURL)
-
 }
 
 const createQuestions = async (triviaURL) => {
     const response = await fetch(triviaURL)
     const responseJSON = await response.json()
     if(responseJSON.response_code!=0){
-        alert("No se ha podido generar la trivia. Intenta nuevamente con otros parámetros.")
+        document.querySelector("#trivia-info").textContent = "No se ha podido generar la trivia. Intenta nuevamente con otros parámetros."
     }else{
+        document.querySelector("#trivia-info").textContent = ""
+        document.querySelector("#type-form-js").style.display = "none"
+        document.querySelector("#questions-form-js").style.display = "block"
         const questionsArray = responseJSON.results
         console.log(questionsArray)
-        document.querySelector("#questions-container-js").innerHTML = ""
         for(let i = 0; i < 10; i++){
             let options = []
             if (questionsArray[i].type=="boolean"){
@@ -164,10 +167,12 @@ const checkAnswers = () => {
             questionCard.classList.remove("is-valid")
         }
     }
-    alert(`Tu puntaje es: ${score}`)
+    document.querySelector("#score-js").textContent = "Puntaje: " + score.toString() + "/1000."
+    document.querySelector("#new-trivia-js").style.display = "block"
 }
 
 const resetAnswers = () => {
+    document.querySelector("#score-js").textContent = ""
     for(let i = 0; i < 10; i++){
         const questionCard = document.querySelector(`#question-card-${i}`)
         questionCard.classList.remove("is-valid", "is-invalid")
@@ -187,5 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     document.querySelector("#questions-form-js").addEventListener("reset", ()=>{
         resetAnswers()
+    })
+    document.querySelector("#new-trivia-js").addEventListener("click", () =>{
+        document.querySelector("#type-form-js").style.display = "flex"
+        document.querySelector("#questions-form-js").style.display = "none"
+        document.querySelector("#new-trivia-js").style.display = "none"
+        document.querySelector("#score-js").textContent = ""
     })
 })

@@ -9,6 +9,14 @@ body{
     margin: 20px;
 }
 
+.question-form{
+    display: none;
+}
+
+.new-trivia{
+    display: none;
+}
+
 .question-card{
     width: 400px;
     margin: 20px;
