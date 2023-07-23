@@ -124,6 +124,7 @@ const createQuestionCard = (question, i, options, category, difficulty) => {
     questionText.innerHTML = question
 
     questionCard.setAttribute("id", `question-card-${i}`)
+    questionText.setAttribute("id", `question-${i}`)
 
     questionCard.classList.add("card", "question-card", "form-control")
     cardBody.classList.add("card-body")
@@ -147,7 +148,7 @@ const createQuestionCard = (question, i, options, category, difficulty) => {
     }
 
     subtitle.classList.add("card-subtitle", "mb-2", "text-body-secondary")
-    questionText.classList.add("card-text")
+    questionText.classList.add("card-text", "card-question")
 
     questionsContainer.appendChild(questionCard)
 }
@@ -156,15 +157,16 @@ const checkAnswers = () => {
     let score = 0
     for(let i = 0; i < 10; i++){
         const questionCard = document.querySelector(`#question-card-${i}`)
-        const answerName = `answer${i}-js`
-        const answer = document.querySelector('input[name='+answerName+']:checked').value
+        const answer = document.querySelector(`input[name=answer${i}-js]:checked`).value
         if(answer == rightAnswersPositions[i]){
             score +=100
             questionCard.classList.add("is-valid")
             questionCard.classList.remove("is-invalid")
+            document.querySelector(`#question-${i}`).style.color = "#157347"
         } else {
             questionCard.classList.add("is-invalid")
             questionCard.classList.remove("is-valid")
+            document.querySelector(`#question-${i}`).style.color = "#dc3545"
         }
     }
     document.querySelector("#score-js").textContent = "Puntaje: " + score.toString() + "/1000."
@@ -176,6 +178,7 @@ const resetAnswers = () => {
     for(let i = 0; i < 10; i++){
         const questionCard = document.querySelector(`#question-card-${i}`)
         questionCard.classList.remove("is-valid", "is-invalid")
+        document.querySelector(`#question-${i}`).style.color = "black"
     }
 }
 

@@ -2,6 +2,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #ddffe6;
 }
 
 .type-card{
@@ -18,13 +19,20 @@ body{
 }
 
 .question-card{
-    width: 400px;
+    width: 450px;
     margin: 20px;
 }
 
 .title-container{
     display: flex;
     justify-content: space-between;
+}
+
+h5.card-title{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: #004b23;
 }
 
 .circles-container{
@@ -58,6 +66,16 @@ body{
 
 .opaque{
     opacity: 0.35;
+}
+
+.card-subtitle{
+    margin-top: 5px;
+}
+
+.card-question{
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .buttons-container{
