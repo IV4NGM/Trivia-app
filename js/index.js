@@ -19,7 +19,9 @@ const createCategories = (categoriesArray) => {
 
 const generateTrivia = () => {
     document.querySelector("#questions-container-js").innerHTML = ""
-    document.querySelector("#trivia-info").textContent = "Generando trivia. Esto puede tardar unos momentos..."
+    document.querySelectorAll(".sorry-no-trivias").forEach(p => p.remove())
+    document.querySelector("#score-container-js").style.display = "none"
+    document.querySelector("#trivia-info-js").textContent = "Generando trivia. Esto puede tardar unos momentos..."
     let triviaURL = "https://opentdb.com/api.php?amount=10"
     const difficulty = document.querySelector("#difficulty-js").value
     const answerType = document.querySelector('input[name="answer-type-js"]:checked').value
@@ -38,9 +40,11 @@ const createQuestions = async (triviaURL) => {
     const response = await fetch(triviaURL)
     const responseJSON = await response.json()
     if(responseJSON.response_code!=0){
-        document.querySelector("#trivia-info").textContent = "No se ha podido generar la trivia. Intenta nuevamente con otros parámetros."
+        generateNoTriviasInfo()
+        document.querySelector("#trivia-info-js").textContent = ""
     }else{
-        document.querySelector("#trivia-info").textContent = ""
+        document.querySelector("#trivia-title-js").textContent = "¿Podrás resolver la siguiente trivia?"
+        document.querySelector("#trivia-info-js").textContent = ""
         document.querySelector("#type-form-js").style.display = "none"
         document.querySelector("#questions-form-js").style.display = "block"
         const questionsArray = responseJSON.results
@@ -169,17 +173,40 @@ const checkAnswers = () => {
             document.querySelector(`#question-${i}`).style.color = "#dc3545"
         }
     }
-    document.querySelector("#score-js").textContent = "Puntaje: " + score.toString() + "/1000."
+    document.querySelector("#score-container-js").style.display = "flex"
+    document.querySelector("#score-js").textContent = score.toString() + "/1000"
+    document.querySelector("#answer-trivia-js").textContent = "Volver a intentarlo"
     document.querySelector("#new-trivia-js").style.display = "block"
 }
 
 const resetAnswers = () => {
     document.querySelector("#score-js").textContent = ""
+    document.querySelector("#score-container-js").style.display = "none"
     for(let i = 0; i < 10; i++){
         const questionCard = document.querySelector(`#question-card-${i}`)
         questionCard.classList.remove("is-valid", "is-invalid")
         document.querySelector(`#question-${i}`).style.color = "black"
     }
+}
+
+const generateNoTriviasInfo = () => {
+    const triviasContainer = document.querySelector("#trivia-info-container-js")
+    const noTrivias = document.createElement("div");
+    const imageNoTrivias = document.createElement("img");
+    const text1 = document.createElement("p");
+    const text2 = document.createElement("p");
+
+    noTrivias.classList.add("sorry-no-trivias");
+    imageNoTrivias.classList.add("no-trivias-img");
+    imageNoTrivias.alt = "No trivias found";
+    text1.textContent =
+      "Ups, parece que no hay trivias que coincidan con tus criterios de búsqueda.";
+    text2.textContent = "Intenta nuevamente con otros parámetros.";
+
+    noTrivias.appendChild(imageNoTrivias);
+    noTrivias.appendChild(text1);
+    noTrivias.appendChild(text2);
+    triviasContainer.appendChild(noTrivias);
 }
 
 getApiCategories()
@@ -200,6 +227,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector("#type-form-js").style.display = "flex"
         document.querySelector("#questions-form-js").style.display = "none"
         document.querySelector("#new-trivia-js").style.display = "none"
+        document.querySelector("#score-container-js").style.display = "none"
         document.querySelector("#score-js").textContent = ""
+        document.querySelector("#answer-trivia-js").textContent = "Verificar respuestas"
+        document.querySelector("#trivia-title-js").textContent = "Generador de trivias"
     })
 })

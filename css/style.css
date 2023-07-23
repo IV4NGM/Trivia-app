@@ -1,13 +1,142 @@
 body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: #ddffe6;
 }
 
+.navbar-brand{
+    display: flex;
+    align-items: center;
+}
+
+.logo-nav{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    background-color: #27d584;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.form-control{
+    min-width: fit-content;
+}
+
+.navbar-brand p{
+    font-weight: bold;
+    margin: 0;
+}
+
+.nav-item{
+    margin-right: 20px;
+}
+
+a.navbar-brand{
+    margin-left: 10px;
+}
+
+a.nav-link{
+    font-size: 17px;
+    /* color: #f48c06; */
+}
+
+ul.navbar-nav{
+    margin-left: 20px;
+}
+
+.first-image{
+    height: 350px;
+    margin-bottom: 40px;
+}
+
+.body-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h2{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+h3{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.two-content{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.action-text{
+    color: #004e98;
+}
+
+.action-text:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.logo-container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.big-logo{
+    width: 300px;
+    height: 300px;
+    background-color: #27d584;
+    padding: 25px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+}
+
+.login-card{
+    display: flex;
+    width: 40%;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title{
+    align-self: center;
+}
+
+.space-title{
+    margin-bottom: 20px !important;
+}
+
+h2.vertical-space{
+    margin-top: 100px;
+}
+
+.bold-text{
+    font-weight: bold;
+}
+
+.filter-title{
+    margin-top: 15px;
+}
+
 .type-card{
+    display: flex;
     width: 600px;
     margin: 20px;
+    padding: 15px;
 }
 
 .question-form{
@@ -15,6 +144,8 @@ body{
 }
 
 .new-trivia{
+    margin-top: 50px;
+    height: 50px;
     display: none;
 }
 
@@ -28,11 +159,36 @@ body{
     justify-content: space-between;
 }
 
-h5.card-title{
+h4.card-title, h5.card-title{
     margin: 0;
     display: flex;
     align-items: center;
     color: #004b23;
+}
+
+.answer-type-filter{
+    margin-bottom: 10px;
+}
+
+.form-select{
+    width: 100%;
+    align-self: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sorry-no-trivias{
+    text-align: center;
+    font-size: 20px;
+}
+
+.no-trivias-img{
+    content: url('https://cdn0.iconfinder.com/data/icons/web-development-48/64/error-404-warning-computer-program-512.png');
+    zoom: 40%;
+}
+
+#trivia-info-js{
+    font-size: 20px;
 }
 
 .circles-container{
@@ -78,7 +234,34 @@ h5.card-title{
     font-weight: 600;
 }
 
-.buttons-container{
+.score-container{
     display: flex;
     justify-content: space-around;
+    margin-top: 35px;
+}
+
+.score-container p{
+    font-size: 22px;
+}
+
+.buttons-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer{
+    margin-top: 50px;
+    height: 80px;
+}
+
+.footer-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 25px 0px 25px;
+}
+
+.footer-body p{
+    margin: 0;
 }
