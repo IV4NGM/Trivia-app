@@ -48,7 +48,6 @@ const createQuestions = async (triviaURL) => {
         document.querySelector("#type-form-js").style.display = "none"
         document.querySelector("#questions-form-js").style.display = "block"
         const questionsArray = responseJSON.results
-        console.log(questionsArray)
         for(let i = 0; i < 10; i++){
             let options = []
             if (questionsArray[i].type=="boolean"){
