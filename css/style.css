@@ -54,6 +54,7 @@ ul.navbar-nav{
 }
 
 h1{
+    color: #157347;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -61,6 +62,11 @@ h1{
 h2{
     margin-top: 20px;
     margin-bottom: 40px;
+    color: #157347;
+}
+
+h2.subtitle{
+    color: black;
 }
 
 h3{
