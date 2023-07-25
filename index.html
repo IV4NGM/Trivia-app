@@ -208,18 +208,39 @@
           </div>
         </div> -->
       </div>
-      <div class="score-container" id="score-container-js">
+      <!-- <div class="score-container" id="score-container-js">
         <p class="bold-text">Tu puntaje es:</p>
         <p id="score-js"></p>
-      </div>
+      </div> -->
       <div class="buttons-container">
         <button type="submit" class="btn btn-success" id="answer-trivia-js">Verificar respuestas</button>
         <button type="reset" class="btn btn-secondary">Restablecer respuestas</button>
       </div>
     </form>
-    <div>
-      <button class="btn btn-success new-trivia" id="new-trivia-js">Generar nueva trivia</button>
+    <!-- Modal -->
+    <div class="modal fade" id="scoreModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="score-title-js">¡Felicidades!</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="score-container score-container-modal">
+              <p class="bold-text">Tu puntaje es:</p>
+              <p id="score-js"></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver a intentarlo</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="new-trivia-js">Generar nueva trivia</button>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- <div>
+      <button class="btn btn-success new-trivia" id="new-trivia-js">Generar nueva trivia</button>
+    </div> -->
   </div>
   <nav class="navbar bottom bg-body-tertiary footer bg-success-bg-subtle">
     <div class="container-fluid footer-body">

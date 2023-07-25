@@ -246,6 +246,20 @@ h4.card-title, h5.card-title{
     margin-top: 35px;
 }
 
+.score-container-modal{
+    margin-top: 0;
+}
+
+.modal-title{
+    font-size: 24px;
+    align-self: center;
+    margin: 0;
+}
+
+.modal-footer{
+    justify-content: space-around;
+}
+
 .score-container p{
     font-size: 22px;
 }

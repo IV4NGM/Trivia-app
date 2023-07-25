@@ -20,7 +20,7 @@ const createCategories = (categoriesArray) => {
 const generateTrivia = () => {
     document.querySelector("#questions-container-js").innerHTML = ""
     document.querySelectorAll(".sorry-no-trivias").forEach(p => p.remove())
-    document.querySelector("#score-container-js").style.display = "none"
+    // document.querySelector("#score-container-js").style.display = "none"
     document.querySelector("#trivia-info-js").textContent = "Generando trivia. Esto puede tardar unos momentos..."
     let triviaURL = "https://opentdb.com/api.php?amount=10"
     const difficulty = document.querySelector("#difficulty-js").value
@@ -172,15 +172,25 @@ const checkAnswers = () => {
             document.querySelector(`#question-${i}`).style.color = "#dc3545"
         }
     }
-    document.querySelector("#score-container-js").style.display = "flex"
+    // document.querySelector("#score-container-js").style.display = "flex"
     document.querySelector("#score-js").textContent = score.toString() + "/1000"
-    document.querySelector("#answer-trivia-js").textContent = "Volver a intentarlo"
-    document.querySelector("#new-trivia-js").style.display = "block"
+    // document.querySelector("#answer-trivia-js").textContent = "Volver a intentarlo"
+    // document.querySelector("#new-trivia-js").style.display = "block"
+    let scoreTitle = ""
+    if(score <= 500){
+        scoreTitle = "Ups... ¿Mal día?"
+    } else if (score<=800){
+        scoreTitle = "¡Muy bien! Aunque se puede mejorar..."
+    } else {
+        scoreTitle = "¡A eso le llamo un erudito!"
+    }
+    document.querySelector("#score-title-js").textContent = scoreTitle
+    showModal()
 }
 
 const resetAnswers = () => {
     document.querySelector("#score-js").textContent = ""
-    document.querySelector("#score-container-js").style.display = "none"
+    // document.querySelector("#score-container-js").style.display = "none"
     for(let i = 0; i < 10; i++){
         const questionCard = document.querySelector(`#question-card-${i}`)
         questionCard.classList.remove("is-valid", "is-invalid")
@@ -208,6 +218,11 @@ const generateNoTriviasInfo = () => {
     triviasContainer.appendChild(noTrivias);
 }
 
+const showModal = () => {
+    const scoreModal = new bootstrap.Modal(document.querySelector("#scoreModal"), {});
+    scoreModal.show();
+}
+
 getApiCategories()
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -225,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#new-trivia-js").addEventListener("click", () =>{
         document.querySelector("#type-form-js").style.display = "flex"
         document.querySelector("#questions-form-js").style.display = "none"
-        document.querySelector("#new-trivia-js").style.display = "none"
-        document.querySelector("#score-container-js").style.display = "none"
+        // document.querySelector("#new-trivia-js").style.display = "none"
+        // document.querySelector("#score-container-js").style.display = "none"
         document.querySelector("#score-js").textContent = ""
         document.querySelector("#answer-trivia-js").textContent = "Verificar respuestas"
         document.querySelector("#trivia-title-js").textContent = "Generador de trivias"
