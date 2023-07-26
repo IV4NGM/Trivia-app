@@ -140,12 +140,15 @@ const createQuestionCard = (question, i, options, category, difficulty) => {
 
     switch (difficulty) {
         case "easy":
+            greenCircle.classList.add("circle-active")
             greenCircle.classList.remove("opaque")
             break
         case "medium":
+            yellowCircle.classList.add("circle-active")
             yellowCircle.classList.remove("opaque")
             break
         case "hard":
+            redCircle.classList.add("circle-active")
             redCircle.classList.remove("opaque")
             break
     }

@@ -214,16 +214,27 @@ h4.card-title, h5.card-title{
     box-shadow: 0px 0px 3px 0px gray;
 }
 
+.circle-active{
+    animation-name: circle-on-off;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes circle-on-off {
+    from {}
+    to {background-color: white;}
+  }
+
 .circle-red{
-    background-color: #b81d13;
+    background-color: #ff2313;
 }
 
 .circle-yellow{
-    background-color: #EFB700;
+    background-color: #ffe405;
 }
 
 .circle-green{
-    background-color: #008450;
+    background-color: #06a42f;
 }
 
 .opaque{
